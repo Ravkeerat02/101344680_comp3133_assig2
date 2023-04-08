@@ -7,7 +7,7 @@ const employeeSchema = mongoose.Schema({
     first_name:{
         type:String,
         required: true,
-        max:100
+        max:50
     },
 
     last_name:{
