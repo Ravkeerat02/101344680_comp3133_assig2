@@ -2,14 +2,33 @@
 
 import gql from 'graphql-tag';
 
-export const createUser = gql`
-    mutation createUser($username: String!, $email: String!, $password: String!) {
-        createUser(usernamename: $name, email: $email, password: $password) {
-            username
+
+export const addUser = gql`
+    mutation addUser($name: String!, $email: String!, $password: String!) {
+        addUser(name: $name, email: $email, password: $password) {
+            name
             password
             email
         }
     }
+`;
+
+export const removeUser = gql`
+    mutation removeUser($id: ID!) {
+        removeUser(id: $id) {
+            id
+            name
+        }
+    }
+`;
+
+export const editUser = gql`
+    mutation updateUser( $name: String!, $email: String!,  ) {
+        updateUser( name: $name, email: $email, ) {
+            name
+            email
+        }
+    }  
 `;
 export const Users = gql`
     query Users {

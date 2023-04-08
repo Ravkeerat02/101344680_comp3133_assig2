@@ -1,0 +1,10 @@
+.container {
+    margin-top: 50px;
+    }
+    .col1, .col2 {
+    display: flex;
+    align-items: center;
+    }
+    .col2 button {
+    margin-left: auto;
+    }
