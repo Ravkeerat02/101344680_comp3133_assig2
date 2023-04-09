@@ -5,13 +5,16 @@ import { Apollo, ApolloModule } from 'apollo-angular';
 import { InMemoryCache } from '@apollo/client/core';
 import { AppComponent } from './app.component';
 import { Route , RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
