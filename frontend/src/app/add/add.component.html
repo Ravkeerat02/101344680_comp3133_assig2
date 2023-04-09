@@ -1,28 +1,45 @@
+<div class="add-form">
+    <div class="form-box">
 <h2>Add Employee</h2>
-<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
-  <div>
+<form [formGroup]="addForm" (ngSubmit)="onSubmit()" class="form">
+  <div class="form-group">
     <label for="id">ID:</label>
-    <input type="text" id="id" name="id" formControlName="id">
+    <input type="text" id="id" name="id" formControlName="id" class="form-control">
   </div>
-  <div>
+  <div class="form-group">
     <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" name="firstName" formControlName="firstName">
+    <input type="text" id="firstName" name="firstName" formControlName="firstName" class="form-control">
   </div>
-  <div>
+  <div class="form-group">
     <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" name="lastName" formControlName="lastName">
+    <input type="text" id="lastName" name="lastName" formControlName="lastName" class="form-control">
   </div>
-  <div>
+  <div class="form-group">
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" formControlName="email">
+    <input type="email" id="email" name="email" formControlName="email" class="form-control">
   </div>
-  <div>
-    <label for="gender">Gender:</label>
-    <input type="text" id="gender" name="gender" formControlName="gender">
+  <div class="form-group">
+    <label>Gender:</label>
+    <div class="radio-buttons">
+      <label>
+        <input type="radio" name="gender" value="male" formControlName="gender"> Male
+      </label>
+      <label>
+        <input type="radio" name="gender" value="female" formControlName="gender"> Female
+      </label>
+      <label>
+        <input type="radio" name="gender" value="other" formControlName="gender"> Other
+      </label>
+    </div>
   </div>
-  <div>
+  <div class="form-group">
     <label for="salary">Salary:</label>
-    <input type="text" id="salary" name="salary" formControlName="salary">
+    <div class="input-with-icon">
+      <span class="dollar-icon">$</span>
+      <input type="text" id="salary" name="salary" formControlName="salary" class="form-control">
+    </div>
   </div>
-  <button type="submit">Submit</button>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+</div>
+</div>
