@@ -9,12 +9,18 @@ import { Route , RouterModule } from '@angular/router';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { CreateComponent } from './create/create.component';
+import { EditComponent } from './edit/edit.component';
+import { ListComponent } from './list/list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    CreateComponent,
+    EditComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
