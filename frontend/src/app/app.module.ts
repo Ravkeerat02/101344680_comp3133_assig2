@@ -12,6 +12,7 @@ import { SignupComponent } from './signup/signup.component';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
 import { ListComponent } from './list/list.component';
+import { AddComponent } from './add/add.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ListComponent } from './list/list.component';
     SignupComponent,
     CreateComponent,
     EditComponent,
-    ListComponent
+    ListComponent,
+    AddComponent
   ],
   imports: [
     BrowserModule,
