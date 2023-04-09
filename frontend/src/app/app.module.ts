@@ -1,32 +1,33 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-
-import { ApolloModule, Apollo } from 'apollo-angular';
-import * as apolloAngularLinkHttp from 'apollo-angular-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { Apollo, ApolloModule } from 'apollo-angular';
+import { InMemoryCache } from '@apollo/client/core';
 import { AppComponent } from './app.component';
+import { Route , RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
+import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ApolloModule,
-    apolloAngularLinkHttp.HttpLinkModule
+    RouterModule, 
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
-  declarations: [
-    LoginComponent,
-    SignupComponent
-  ]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(apollo: Apollo, httpLink: apolloAngularLinkHttp.HttpLink) {
+  constructor(apollo: Apollo) {
     apollo.create({
-      link: httpLink.create({uri: 'backendopx.herokuapp.com/graphql'}),
+      uri: 'https://backendopx.herokuapp.com/graphql',
       cache: new InMemoryCache()
     });
   }

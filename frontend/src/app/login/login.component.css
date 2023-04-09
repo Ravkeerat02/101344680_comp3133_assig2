@@ -1,0 +1,54 @@
+.container {
+    margin-top: 50px;
+  }
+  
+  .card {
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+  }
+  
+  .card-header {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #dcdcdc;
+    border-radius: 5px 5px 0 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    border: 1px solid #dcdcdc;
+    border-radius: 3px;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  button[type="submit"] {
+    background-color: #007bff;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0069d9;
+    cursor: pointer;
+  }
+  
