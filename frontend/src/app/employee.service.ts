@@ -1,68 +1,147 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
+import { ApolloError } from '@apollo/client/core';
+import { catchError, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import { Employee } from './models/employee';
+
+interface EmployeesQueryResult {
+  employees: Employee[];
+}
+
+interface EmployeeQueryResult {
+  employee: Employee;
+}
+
+interface CreateEmployeeMutationResult {
+  createEmployee: Employee;
+}
+
+interface UpdateEmployeeMutationResult {
+  updateEmployee: Employee;
+}
+
+interface DeleteEmployeeMutationResult {
+  deleteEmployee: Employee;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
-  private EMPLOYEES_QUERY = gql`
-    query {
-      employees {
-        id
-        firstName
-        lastName
-        email
-        gender
-        salary
-      }
-    }
-  `;
-
-  private ADD_EMPLOYEE_MUTATION = gql`
-    mutation AddEmployee($input: EmployeeInput!) {
-      addEmployee(input: $input) {
-        id
-        firstName
-        lastName
-        email
-        gender
-        salary
-      }
-    }
-  `;
-
   constructor(private apollo: Apollo) {}
 
   getEmployees(): Observable<Employee[]> {
     return this.apollo
-      .watchQuery<any>({
-        query: this.EMPLOYEES_QUERY
+      .watchQuery<EmployeesQueryResult>({
+        query: gql`
+          {
+            employees {
+              id
+              firstName
+              lastName
+              email
+            }
+          }
+        `,
       })
-      .valueChanges.pipe(map(result => result.data.employees));
+      .valueChanges.pipe(map((result) => result.data.employees));
   }
 
-  addEmployee(employee: Employee): Observable<Employee> {
+  getEmployee(id: string): Observable<Employee> {
     return this.apollo
-      .mutate<any>({
-        mutation: this.ADD_EMPLOYEE_MUTATION,
+      .watchQuery<EmployeeQueryResult>({
+        query: gql`
+          query GetEmployee($id: ID!) {
+            employee(id: $id) {
+              id
+              firstName
+              lastName
+              email
+            }
+          }
+        `,
         variables: {
-          input: employee
+          id,
         },
-        update: (store, { data: { addEmployee } }) => {
-          const data = store.readQuery<any>({
-            query: this.EMPLOYEES_QUERY
-          });
-          data.employees.push(addEmployee);
-          store.writeQuery({
-            query: this.EMPLOYEES_QUERY,
-            data
-          });
-        }
       })
-      .pipe(map(result => result.data.addEmployee));
+      .valueChanges.pipe(map((result) => result.data.employee));
+  }
+
+  addEmployee(firstName: string, lastName: string, email: string): Observable<Employee> {
+    return this.apollo
+      .mutate<CreateEmployeeMutationResult>({
+        mutation: gql`
+          mutation CreateEmployee($firstName: String!, $lastName: String!, $email: String!) {
+            createEmployee(firstName: $firstName, lastName: $lastName, email: $email) {
+              id
+              firstName
+              lastName
+              email
+            }
+          }
+        `,
+        variables: {
+          firstName,
+          lastName,
+          email,
+        },
+      })
+      .pipe(
+        map((result) => {
+          if (result.data?.createEmployee) {
+            return result.data.createEmployee;
+          } else {
+            throw new Error('Could not create employee');
+          }
+        }),
+        catchError((error: ApolloError) => {
+          console.error(error);
+          throw error;
+        })
+      );
+  }
+
+  updateEmployee(id: string, firstName: string, lastName: string, email: string): Observable<Employee> {
+    return this.apollo
+      .mutate<UpdateEmployeeMutationResult>({
+        mutation: gql`
+          mutation UpdateEmployee($id: ID!, $firstName: String!, $lastName: String!, $email: String!) {
+            updateEmployee(id: $id, firstName: $firstName, lastName: $lastName, email: $email) {
+              id
+              firstName
+              lastName
+              email
+            }
+          }
+        `,
+        variables: {
+          id,
+          firstName,
+          lastName,
+          email,
+        },
+      })
+      .pipe(map((result) => result.data!.updateEmployee));
+  }
+
+  deleteEmployee(id: string): Observable<Employee> {
+    return this.apollo
+      .mutate<DeleteEmployeeMutationResult>({
+        mutation: gql`
+          mutation DeleteEmployee($id: ID!) {
+            deleteEmployee(id: $id) {
+              id
+              firstName
+              lastName
+              email
+            }
+          }
+        `,
+        variables: {
+          id,
+        },
+      })
+      .pipe(map((result) => result.data!.deleteEmployee));
   }
 }

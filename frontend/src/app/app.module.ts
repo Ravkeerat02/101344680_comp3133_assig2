@@ -13,6 +13,7 @@ import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
 import { ListComponent } from './list/list.component';
 import { AddComponent } from './add/add.component';
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { AddComponent } from './add/add.component';
     ApolloModule,
     RouterModule, 
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

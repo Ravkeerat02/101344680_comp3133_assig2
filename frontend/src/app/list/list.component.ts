@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Employee } from '../models/employee';
 import { EmployeeService } from '../employee.service';
+import {MatTableModule} from '@angular/material/table';
+
 
 @Component({
   selector: 'app-list',
@@ -9,12 +10,32 @@ import { EmployeeService } from '../employee.service';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  employees$: Observable<Employee[]> | undefined;
+
+  employees : any[] = [];
+  router: any;
 
   constructor(private employeeService: EmployeeService) {}
 
-  ngOnInit(): void {
-    this.employees$ = this.employeeService.getEmployees();
+  ngOnInit() {
+    this.getEmployees();
+  }
+
+  getEmployees() {
+    this.employeeService.getEmployees().subscribe(data => {
+      this.employees = data;
+    });
+  }
+
+  viewEmployee(id: string) {
+    this.router.navigate(['/view', id]);
+  }
+
+  editEmployee(id: string) {
+    this.router.navigate(['/edit', id]);
+  }
+  deleteEmployee(id: string) {
+    this.employeeService.deleteEmployee(id).subscribe(data => {
+      this.getEmployees();
+    });
   }
 }
-
