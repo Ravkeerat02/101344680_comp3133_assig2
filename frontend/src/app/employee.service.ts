@@ -3,7 +3,7 @@ import { Apollo, gql } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Employee } from '../models/employee.model';
+import { Employee } from './models/employee';
 
 @Injectable({
   providedIn: 'root'
